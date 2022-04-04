@@ -1,16 +1,25 @@
 // ignore_for_file: avoid_print
 
+// If you modify ANY of the code in this file, and it needs to run on the
+// web, then make sure to rerun lib/build_web_worker[_posix | _windows.bat].
+
 import 'package:squadron/squadron.dart';
 
 class SampleService implements WorkerService {
-  Future io({required int milliseconds}) =>
-      Future.delayed(Duration(milliseconds: milliseconds));
+  Future<String> io({required int milliseconds}) async {
+    DateTime startTime = DateTime.now();
+    await Future.delayed(Duration(milliseconds: milliseconds));
+    return 'runTime: ${DateTime.now().difference(startTime)}';
+  }
 
-  void cpu({required int milliseconds}) {
+  // print messages show up in the javascript console for the web version
+  Future<String> cpu({required int milliseconds}) async {
     final sw = Stopwatch()..start();
     while (sw.elapsedMilliseconds < milliseconds) {
       print('elapsed: ${sw.elapsed}');
     }
+    sw.stop();
+    return sw.elapsedMilliseconds.toString();
   }
 
   // command IDs

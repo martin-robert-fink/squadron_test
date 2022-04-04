@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:squadron/squadron.dart';
 
-import './sample/sample_worker.dart';
 import './sample/browser/sample_worker.dart';
 import './sample/vm/sample_worker.dart';
 
@@ -14,16 +13,13 @@ class SquadronApp extends StatelessWidget {
   const SquadronApp({Key? key}) : super(key: key);
 
   void _onPressed() async {
-    WorkerPool<SampleWorker> pool;
-    if (kIsWeb) {
-      pool = WorkerPool(createJsSampleWorker,
-          concurrencySettings:
-              const ConcurrencySettings(maxWorkers: 4, maxParallel: 2));
-    } else {
-      pool = WorkerPool(createVmSampleWorker,
-          concurrencySettings:
-              const ConcurrencySettings(maxWorkers: 4, maxParallel: 2));
-    }
+    var pool = WorkerPool(
+      (kIsWeb) ? createJsSampleWorker : createVmSampleWorker,
+      concurrencySettings: const ConcurrencySettings(
+        maxWorkers: 4,
+        maxParallel: 2,
+      ),
+    );
     await pool.start();
 
     var n = 42;
