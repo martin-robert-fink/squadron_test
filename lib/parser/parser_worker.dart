@@ -12,12 +12,7 @@ class ParserWorker extends Worker implements ParserService {
       : super(entryPoint, id: id, args: args);
 
   @override
-  Future<String> io({required int milliseconds}) {
-    return send(ParserService.ioCommand, [milliseconds]);
-  }
-
-  @override
-  Future<String> cpu({required int milliseconds}) {
-    return send(ParserService.cpuCommand, [milliseconds]);
+  Stream<String> streamParser({required int milliseconds}) {
+    return stream(ParserService.streamCommand, [milliseconds]);
   }
 }

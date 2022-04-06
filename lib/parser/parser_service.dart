@@ -6,30 +6,20 @@
 import 'package:squadron/squadron.dart';
 
 class ParserService implements WorkerService {
-  Future<String> io({required int milliseconds}) async {
-    DateTime startTime = DateTime.now();
-    await Future.delayed(Duration(milliseconds: milliseconds));
-    return 'runTime: ${DateTime.now().difference(startTime)}';
-  }
-
-  // print messages show up in the javascript console for the web version
-  Future<String> cpu({required int milliseconds}) async {
-    final sw = Stopwatch()..start();
-    while (sw.elapsedMilliseconds < milliseconds) {
-      print('elapsed: ${sw.elapsed}');
+  Stream<String> streamParser({required int milliseconds}) async* {
+    for (var i = 0; i < milliseconds; i++) {
+      await Future.delayed(const Duration(milliseconds: 500));
+      yield '$i';
     }
-    sw.stop();
-    return sw.elapsedMilliseconds.toString();
   }
 
   // command IDs
-  static const ioCommand = 1;
-  static const cpuCommand = 2;
+  static const streamCommand = 1;
 
   // command IDs --> command implementations
   @override
   Map<int, CommandHandler> get operations => {
-        ioCommand: (WorkerRequest r) => io(milliseconds: r.args[0]),
-        cpuCommand: (WorkerRequest r) => cpu(milliseconds: r.args[0]),
+        streamCommand: (WorkerRequest r) =>
+            streamParser(milliseconds: r.args[0]),
       };
 }
