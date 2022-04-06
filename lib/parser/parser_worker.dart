@@ -5,19 +5,19 @@
 
 import 'package:squadron/squadron.dart';
 
-import './sample_service.dart';
+import './parser_service.dart';
 
-class SampleWorker extends Worker implements SampleService {
-  SampleWorker(dynamic entryPoint, {String? id, List args = const []})
+class ParserWorker extends Worker implements ParserService {
+  ParserWorker(dynamic entryPoint, {String? id, List args = const []})
       : super(entryPoint, id: id, args: args);
 
   @override
   Future<String> io({required int milliseconds}) {
-    return send(SampleService.ioCommand, [milliseconds]);
+    return send(ParserService.ioCommand, [milliseconds]);
   }
 
   @override
   Future<String> cpu({required int milliseconds}) {
-    return send(SampleService.cpuCommand, [milliseconds]);
+    return send(ParserService.cpuCommand, [milliseconds]);
   }
 }

@@ -35,6 +35,6 @@ file:///Users/mfink/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/squadro
 file:///Users/mfink/Developer/flutter/bin/cache/dart-sdk/lib/_internal/dart2js_platform.dill
 file:///Users/mfink/Developer/flutter/bin/cache/dart-sdk/lib/libraries.json
 file:///Users/mfink/Dropbox/Developer/Flutter/squadron_test/.dart_tool/package_config.json
-file:///Users/mfink/Dropbox/Developer/Flutter/squadron_test/lib/sample/browser/sample_worker.dart
-file:///Users/mfink/Dropbox/Developer/Flutter/squadron_test/lib/sample/sample_service.dart
-file:///Users/mfink/Dropbox/Developer/Flutter/squadron_test/lib/sample/sample_worker.dart
+file:///Users/mfink/Dropbox/Developer/Flutter/squadron_test/lib/parser/browser/parser_worker.dart
+file:///Users/mfink/Dropbox/Developer/Flutter/squadron_test/lib/parser/parser_service.dart
+file:///Users/mfink/Dropbox/Developer/Flutter/squadron_test/lib/parser/parser_worker.dart

@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:squadron/squadron.dart';
 
-import './sample/browser/sample_worker.dart';
-import './sample/vm/sample_worker.dart';
+import 'parser/browser/parser_worker.dart';
+import 'parser/vm/parser_worker.dart';
 
 void main() {
   runApp(const SquadronApp());
@@ -14,7 +14,7 @@ class SquadronApp extends StatelessWidget {
 
   void _onPressed() async {
     var pool = WorkerPool(
-      (kIsWeb) ? createJsSampleWorker : createVmSampleWorker,
+      (kIsWeb) ? createJsParserWorker : createVmParserWorker,
       concurrencySettings: const ConcurrencySettings(
         maxWorkers: 4,
         maxParallel: 2,

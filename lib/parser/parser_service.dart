@@ -5,7 +5,7 @@
 
 import 'package:squadron/squadron.dart';
 
-class SampleService implements WorkerService {
+class ParserService implements WorkerService {
   Future<String> io({required int milliseconds}) async {
     DateTime startTime = DateTime.now();
     await Future.delayed(Duration(milliseconds: milliseconds));
