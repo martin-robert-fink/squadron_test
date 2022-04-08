@@ -5,6 +5,7 @@
 
 import 'package:squadron/squadron.dart';
 
+import '../model/signal_value.dart';
 import './parser_service.dart';
 
 class ParserWorker extends Worker implements ParserService {
@@ -12,7 +13,8 @@ class ParserWorker extends Worker implements ParserService {
       : super(entryPoint, id: id, args: args);
 
   @override
-  Stream<String> streamParser({required int milliseconds}) {
-    return stream(ParserService.streamCommand, [milliseconds]);
+  Stream<SignalValue> streamParser(List<dynamic> words) {
+    return stream(ParserService.streamCommand, [words])
+        .map((sv) => SignalValue.deserialize(sv));
   }
 }

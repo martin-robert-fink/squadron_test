@@ -3,13 +3,18 @@
 // If you modify ANY of the code in this file, and it needs to run on the
 // web, then make sure to rerun lib/build_web_worker[_posix | _windows.bat].
 
+import 'dart:async';
+
 import 'package:squadron/squadron.dart';
+import '../model/signal_value.dart';
 
 class ParserService implements WorkerService {
-  Stream<String> streamParser({required int milliseconds}) async* {
-    for (var i = 0; i < milliseconds; i++) {
+  Stream<SignalValue> streamParser(List<dynamic> words) async* {
+    int id = 0;
+    for (var word in words) {
       await Future.delayed(const Duration(milliseconds: 500));
-      yield '$i';
+      if (id == 2) throw 'this is an error';
+      yield SignalValue(signalDecimalValue: ++id, interval: id, idCode: word);
     }
   }
 
@@ -19,7 +24,7 @@ class ParserService implements WorkerService {
   // command IDs --> command implementations
   @override
   Map<int, CommandHandler> get operations => {
-        streamCommand: (WorkerRequest r) =>
-            streamParser(milliseconds: r.args[0]),
+        streamCommand: (r) =>
+            streamParser(r.args[0]).map((sv) => sv.serialize()),
       };
 }
